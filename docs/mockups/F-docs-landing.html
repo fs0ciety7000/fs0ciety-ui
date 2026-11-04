@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>F · Accueil de la doc</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wdth,wght@75..112.5,300..800&amp;family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#070A1F}
+a{color:#8EC5FF}a:hover{color:#C6E2FF}
+.cond{font-family:'Martian Mono',monospace;font-stretch:75%;text-transform:uppercase;letter-spacing:0.02em}
+.bleed{text-shadow:-2px 0 rgba(255,79,123,0.8),2px 0 rgba(142,197,255,0.8);animation:jit 5s infinite steps(1)}
+@keyframes jit{0%,90%,100%{text-shadow:-2px 0 rgba(255,79,123,0.8),2px 0 rgba(142,197,255,0.8)}92%{text-shadow:-5px 0 rgba(255,79,123,0.9),4px 0 rgba(142,197,255,0.9)}95%{text-shadow:3px 0 rgba(255,79,123,0.9),-3px 0 rgba(142,197,255,0.9)}}
+.bar{animation:breathe 6s ease-in-out infinite}
+@keyframes breathe{50%{filter:brightness(1.3)}}
+.tick{position:absolute;width:10px;height:10px;border-color:#8EC5FF;border-style:solid}
+@media (prefers-reduced-motion: reduce){.bleed,.bar{animation:none}}
+</style>
+</helmet>
+<div style="width:100%;min-height:1240px;box-sizing:border-box;background:#070A1F;color:#E4E7FF;font-family:'Geist',system-ui,sans-serif">
+<div style="max-width:1152px;margin:0 auto;padding:28px 24px 56px;box-sizing:border-box;display:flex;flex-direction:column;gap:64px">
+
+  <header style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+    <a href="#top" class="cond" style="font-size:18px;font-weight:800;color:#E4E7FF;text-decoration:none">fs0ciety<span style="color:{{accent}}">_</span></a>
+    <nav aria-label="Principale" style="display:flex;gap:24px;flex-wrap:wrap;font-size:14px">
+      <a href="#docs" style="color:#B9C0EA;text-decoration:none">Docs</a>
+      <a href="#composants" style="color:#B9C0EA;text-decoration:none">Composants</a>
+      <a href="#icones" style="color:#B9C0EA;text-decoration:none">Icônes</a>
+      <a href="#palette" style="color:#B9C0EA;text-decoration:none">Palette</a>
+      <a href="https://github.com/" style="color:#B9C0EA;text-decoration:none">GitHub</a>
+    </nav>
+  </header>
+
+  <section id="top" style="display:flex;flex-wrap:wrap;gap:48px;align-items:center">
+    <div style="flex:1 1 440px;min-width:0;display:flex;flex-direction:column;gap:24px">
+      <span class="cond" style="font-size:12px;color:#8EC5FF">v0.1 · Svelte · React · Astro</span>
+      <h1 class="bleed" style="margin:0;font-family:'Martian Mono',monospace;font-stretch:75%;font-size:76px;font-weight:800;letter-spacing:-0.04em;line-height:0.92;text-transform:uppercase;color:#F2F7FF">Interfaces pour le quart de nuit.</h1>
+      <p style="margin:0;font-size:18px;line-height:1.6;color:#B9C0EA;max-width:520px">Tokens OKLCH, composants accessibles, icônes et motion pensés pour les outils techniques. Un seul système, trois frameworks.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#docs" style="display:inline-flex;align-items:center;min-height:44px;padding:0 22px;border-radius:12px;background:{{accent}};color:#070A1F;font-weight:600;text-decoration:none">Commencer</a>
+        <a href="#composants" style="display:inline-flex;align-items:center;min-height:44px;padding:0 22px;border-radius:12px;border:1px solid #2A3170;background:#0D1233;color:#E4E7FF;font-weight:500;text-decoration:none">Voir les composants</a>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:440px;padding:12px 14px;border-radius:12px;border:1px solid #1C2250;background:#060818;font-family:'Geist Mono',monospace;font-size:14px">
+        <span><span style="color:#3DDC6B">$</span> pnpm add @fs0lab/svelte</span>
+        <button type="button" aria-label="Copier la commande" style="min-width:44px;min-height:36px;border:0;border-radius:8px;background:#141A45;color:#B9C0EA"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg></button>
+      </div>
+    </div>
+
+    <div aria-hidden="true" style="flex:1 1 460px;min-width:0;position:relative;height:460px;border:1px solid #2B4A75;background:#060818;overflow:hidden">
+      <div class="tick" style="left:-1px;top:-1px;border-width:2px 0 0 2px"></div>
+      <div class="tick" style="right:-1px;top:-1px;border-width:2px 2px 0 0"></div>
+      <div class="tick" style="left:-1px;bottom:-1px;border-width:0 0 2px 2px"></div>
+      <div class="tick" style="right:-1px;bottom:-1px;border-width:0 2px 2px 0"></div>
+      <div class="cond" style="position:absolute;left:20px;top:18px;display:flex;flex-direction:column;gap:2px;font-size:11px;line-height:1.5;color:#8EC5FF">
+        <span>Node: fs0-ui</span><span>Uptime: 99.98 %</span><span style="color:#3DDC6B">Status: vivant</span>
+      </div>
+      <div style="position:absolute;right:20px;top:20px;width:190px;border:1px solid #8EC5FF;padding:12px;box-sizing:border-box;background:rgba(6,8,24,0.85)">
+        <span class="cond" style="display:block;font-size:10px;color:#7F93AD">Window</span>
+        <span class="cond" style="display:block;margin-top:4px;font-size:13px;color:#E4E7FF">Build #4721 ok</span>
+        <span class="cond" style="display:block;margin-top:2px;font-size:10px;color:#8EC5FF">03:47 · 38 s</span>
+      </div>
+      <svg width="100%" height="460" viewBox="0 0 560 460" preserveAspectRatio="none" fill="none" style="position:absolute;left:0;top:0">
+        <path d="M-10 300 C 120 220, 220 360, 330 260 S 470 170, 580 230" stroke="#FF4F7B" stroke-width="4" opacity="0.85"></path>
+        <path d="M-10 320 C 130 250, 240 390, 350 290 S 480 210, 580 260" stroke="#5B8CFF" stroke-width="4" opacity="0.8"></path>
+        <path d="M20 140 H 200 M20 132 v16 M200 132 v16" stroke="#8EC5FF" stroke-width="1"></path>
+      </svg>
+      <div style="position:absolute;left:0;right:0;bottom:0;height:220px;display:flex;align-items:flex-end;gap:2px">
+        <sc-for list="{{bars}}" as="b" hint-placeholder-count="64"><div class="bar" style="flex:1 1 0;height:{{b.h}}px;background:#1E8F45;border-top:3px solid #7CFFA4;opacity:{{b.o}}"></div></sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="composants" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+    <article style="display:flex;flex-direction:column;gap:12px;padding:24px;border:1px solid #1C2250;border-radius:16px;background:#0D1233">
+      <span class="cond" style="font-size:11px;color:#8EC5FF">01 — Tokens</span>
+      <h2 style="margin:0;font-size:20px;font-weight:600">Une source, tous les formats</h2>
+      <p style="margin:0;font-size:15px;line-height:1.6;color:#B9C0EA">DTCG → variables CSS, preset Tailwind, TS et JSON Figma. Thèmes clair, sombre et « terminal ».</p>
+    </article>
+    <article style="display:flex;flex-direction:column;gap:12px;padding:24px;border:1px solid #1C2250;border-radius:16px;background:#0D1233">
+      <span class="cond" style="font-size:11px;color:#8EC5FF">02 — Composants</span>
+      <h2 style="margin:0;font-size:20px;font-weight:600">Même API, trois frameworks</h2>
+      <p style="margin:0;font-size:15px;line-height:1.6;color:#B9C0EA">Svelte 5, React 19, Astro. SSR-safe, accessibles au clavier, testés avec axe.</p>
+    </article>
+    <article id="icones" style="display:flex;flex-direction:column;gap:12px;padding:24px;border:1px solid #1C2250;border-radius:16px;background:#0D1233">
+      <span class="cond" style="font-size:11px;color:#8EC5FF">03 — Motion</span>
+      <h2 style="margin:0;font-size:20px;font-weight:600">Glitch, mais poli</h2>
+      <p style="margin:0;font-size:15px;line-height:1.6;color:#B9C0EA">Décalages chromatiques, données en pluie, traits qui se dessinent. Tout se coupe sous prefers-reduced-motion.</p>
+    </article>
+  </section>
+
+  <section id="palette" style="display:flex;flex-direction:column;gap:16px;padding:28px;border:1px solid #2B4A75;background:#060818">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <span class="cond" style="font-size:11px;color:#8EC5FF">Générateur de palettes</span>
+        <h2 style="margin:0;font-size:24px;font-weight:600">Une couleur, onze échelons vérifiés</h2>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label for="f-seed" style="font-size:13px;color:#B9C0EA">Couleur source</label>
+          <input id="f-seed" value="#FF4F7B" style="font-family:'Geist Mono',monospace;font-size:14px;width:140px;padding:10px 12px;min-height:44px;box-sizing:border-box;background:#0D1233;color:#E4E7FF;border:1px solid #2A3170;border-radius:10px;outline:none">
+        </div>
+        <span style="padding:6px 10px;border-radius:999px;background:rgba(61,220,107,0.14);color:#7CFFA4;font-size:12px;font-weight:500">AA 14/14</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:4px">
+      <sc-for list="{{scale}}" as="s" hint-placeholder-count="11">
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="height:64px;border-radius:6px;background:{{s.c}}"></div><span style="font-family:'Geist Mono',monospace;font-size:11px;color:#9AA3D6">{{s.n}}</span></div>
+      </sc-for>
+    </div>
+  </section>
+
+  <footer style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid #1C2250;padding-top:20px;font-family:'Geist Mono',monospace;font-size:12px;color:#9AA3D6">
+    <span>Hybride D + E : filets schématiques et corail de D, nuit indigo et vert vivant de E</span>
+    <span>MIT · [ANNÉE]</span>
+  </footer>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#FF4F7B","options":["#FF4F7B","#3DDC6B","#8EC5FF"]},"$preview":{"width":1280,"height":1240}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var rnd = function (n) { var x = Math.sin(n * 12.9898) * 43758.5453; return x - Math.floor(x); };
+    var bars = [];
+    for (var i = 0; i < 64; i++) {
+      var h = 170 * Math.exp(-Math.pow((i - 30) / 11, 2)) + 60 * Math.exp(-Math.pow((i - 56) / 5, 2)) + 24 + rnd(i + 5) * 18;
+      bars.push({ h: Math.round(h), o: String(0.55 + rnd(i + 11) * 0.45) });
+    }
+    var hex = ['#FFF1F4','#FFE0E7','#FFC2D0','#FF94AD','#FF6A8E','#FF4F7B','#E52E5E','#BF1F4B','#9A1A3E','#7A1735','#450818'];
+    var names = ['50','100','200','300','400','500','600','700','800','900','950'];
+    var scale = hex.map(function (c, k) { return { c: c, n: names[k] }; });
+    return { accent: this.props.accent ?? '#FF4F7B', bars: bars, scale: scale };
+  }
+}
+</script>
+</body>
+</html>
