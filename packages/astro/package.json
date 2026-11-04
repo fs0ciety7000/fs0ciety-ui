@@ -1,0 +1,28 @@
+{
+	"name": "@fs0lab/astro",
+	"version": "0.0.0",
+	"description": "fs0ciety components for Astro.",
+	"license": "MIT",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/fsociety7000/fs0ciety-ui.git",
+		"directory": "packages/astro"
+	},
+	"publishConfig": {
+		"access": "public",
+		"provenance": true
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"files": [
+		"src"
+	],
+	"sideEffects": [
+		"**/*.css"
+	],
+	"peerDependencies": {
+		"astro": "^7.0.0"
+	}
+}

@@ -1,0 +1,27 @@
+{
+	"name": "@fs0lab/font",
+	"version": "0.0.0",
+	"description": "fs0 Mono: self-hosted woff2 monospace font derived from Martian Mono (SIL OFL 1.1).",
+	"license": "OFL-1.1",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/fsociety7000/fs0ciety-ui.git",
+		"directory": "packages/font"
+	},
+	"publishConfig": {
+		"access": "public",
+		"provenance": true
+	},
+	"exports": {
+		"./*": "./fonts/*"
+	},
+	"files": [
+		"fonts",
+		"OFL.txt",
+		"FONTLOG.txt"
+	],
+	"sideEffects": [
+		"**/*.css"
+	]
+}

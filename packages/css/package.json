@@ -1,0 +1,25 @@
+{
+	"name": "@fs0lab/css",
+	"version": "0.0.0",
+	"description": "fs0ciety CSS: reset, base, utilities and CSS-only effects, in cascade layers.",
+	"license": "MIT",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/fsociety7000/fs0ciety-ui.git",
+		"directory": "packages/css"
+	},
+	"publishConfig": {
+		"access": "public",
+		"provenance": true
+	},
+	"exports": {
+		".": "./src/index.css"
+	},
+	"files": [
+		"src"
+	],
+	"sideEffects": [
+		"**/*.css"
+	]
+}

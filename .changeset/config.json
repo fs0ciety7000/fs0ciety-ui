@@ -1,0 +1,19 @@
+{
+	"$schema": "https://unpkg.com/@changesets/config/schema.json",
+	"changelog": "@changesets/cli/changelog",
+	"commit": false,
+	"fixed": [],
+	"linked": [
+		["@fs0lab/svelte", "@fs0lab/react", "@fs0lab/astro"],
+		[
+			"@fs0lab/icons",
+			"@fs0lab/icons-svelte",
+			"@fs0lab/icons-react",
+			"@fs0lab/icons-astro"
+		]
+	],
+	"access": "public",
+	"baseBranch": "main",
+	"updateInternalDependencies": "patch",
+	"ignore": ["@fs0lab/docs"]
+}

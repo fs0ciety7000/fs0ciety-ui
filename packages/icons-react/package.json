@@ -1,0 +1,34 @@
+{
+	"name": "@fs0lab/icons-react",
+	"version": "0.0.0",
+	"description": "fs0ciety icons as React components.",
+	"license": "MIT",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/fsociety7000/fs0ciety-ui.git",
+		"directory": "packages/icons-react"
+	},
+	"publishConfig": {
+		"access": "public",
+		"provenance": true
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.mts",
+			"default": "./dist/index.mjs"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"sideEffects": false,
+	"scripts": {
+		"build": "tsdown src/index.ts --dts",
+		"typecheck": "tsc --noEmit",
+		"test": "vitest run --passWithNoTests"
+	},
+	"peerDependencies": {
+		"react": "^19.0.0"
+	}
+}

@@ -1,0 +1,7 @@
+FONTLOG for fs0 Mono
+
+fs0 Mono is a modified version of Martian Mono (Copyright The Martian Mono Project Authors),
+licensed under the SIL Open Font License 1.1. No Reserved Font Name of the original is used.
+
+Changelog
+- (pending) initial subset and glyph modifications

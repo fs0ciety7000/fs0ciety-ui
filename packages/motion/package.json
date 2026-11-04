@@ -1,0 +1,34 @@
+{
+	"name": "@fs0lab/motion",
+	"version": "0.0.0",
+	"description": "fs0ciety motion presets (fs-draw, fs-scramble, fs-boot, fs-glitch, fs-count) built on GSAP.",
+	"license": "MIT",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/fsociety7000/fs0ciety-ui.git",
+		"directory": "packages/motion"
+	},
+	"publishConfig": {
+		"access": "public",
+		"provenance": true
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.mts",
+			"default": "./dist/index.mjs"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"sideEffects": false,
+	"scripts": {
+		"build": "tsdown src/index.ts --dts",
+		"typecheck": "tsc --noEmit",
+		"test": "vitest run --passWithNoTests"
+	},
+	"peerDependencies": {
+		"gsap": "^3.13.0"
+	}
+}
