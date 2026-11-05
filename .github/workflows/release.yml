@@ -26,3 +26,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # pnpm publish ignores publishConfig.provenance; force it for every package.
+          NPM_CONFIG_PROVENANCE: "true"
+      # changesets/action@v1 cannot parse @changesets/cli v3 output, so it never
+      # pushes the tags `changeset publish` creates. Push them explicitly.
+      - name: Push release tags
+        run: git push origin --tags
