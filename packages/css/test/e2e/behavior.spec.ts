@@ -119,11 +119,36 @@ test("forced-colors: decoration hidden, cursor stays visible", async ({
 		).display,
 		shadow: getComputedStyle(document.querySelector("#bleed-title") as Element)
 			.textShadow,
+		bleedAnim: getComputedStyle(
+			document.querySelector("#bleed-title") as Element,
+		).animationName,
 		cursorBg: getComputedStyle(document.querySelector(".fs-cursor") as Element)
 			.backgroundColor,
 	}));
 	expect(r.scan).toBe("none");
 	expect(r.shadow).toBe("none");
+	expect(r.bleedAnim).toBe("none");
 	expect(r.cursorBg).not.toBe("rgba(0, 0, 0, 0)");
 	expect(r.cursorBg).not.toBe("transparent");
+});
+
+test("positive control: effects are active by default", async ({ page }) => {
+	await page.goto(url("night"));
+	const r = await page.evaluate(() => {
+		const c = (sel: string, pseudo?: string) =>
+			getComputedStyle(document.querySelector(sel) as Element, pseudo);
+		return {
+			scan: c("#scan-panel", "::after").display,
+			sweepAnim: c("#scan-panel", "::before").animationName,
+			bleedAnim: c("#bleed-title").animationName,
+			cursorAnim: c(".fs-cursor").animationName,
+			line: c("#page-line").borderTopColor,
+			strong: c("#page-strong").borderTopColor,
+		};
+	});
+	expect(r.scan).not.toBe("none");
+	expect(r.sweepAnim).not.toBe("none");
+	expect(r.bleedAnim).not.toBe("none");
+	expect(r.cursorAnim).not.toBe("none");
+	expect(r.line).not.toBe(r.strong);
 });

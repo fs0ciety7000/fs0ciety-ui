@@ -4,9 +4,18 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Spécimen fs0ciety CSS</title>
-		<link rel="stylesheet" href="../../node_modules/@fontsource-variable/martian-mono/wght.css" />
+		<link rel="stylesheet" href="../../node_modules/@fontsource-variable/martian-mono/standard.css" />
 		<link rel="stylesheet" href="../../node_modules/@fontsource-variable/inter-tight/wght.css" />
 		<link rel="stylesheet" href="../../dist/fs.css" />
+		<style>
+			/* Specimen only: fontsource families come first in the token stacks. */
+			:root,
+			[data-fs-theme] {
+				--fs-font-display: "Martian Mono Variable", "Martian Mono", ui-monospace, monospace;
+				--fs-font-mono: "Martian Mono Variable", "Martian Mono", ui-monospace, monospace;
+				--fs-font-sans: "Inter Tight Variable", "Inter Tight", system-ui, sans-serif;
+			}
+		</style>
 		<script>
 			const params = new URLSearchParams(location.search);
 			const theme = params.get("theme");
@@ -20,7 +29,7 @@
 		</script>
 	</head>
 	<body>
-		<main class="fs-container fs-stack">
+		<main class="fs-container fs-stack" style="padding-block: var(--fs-space-12)">
 			<h1>Titre de niveau un</h1>
 			<h2>Titre de niveau deux</h2>
 			<h3>Titre de niveau trois</h3>
@@ -84,7 +93,7 @@
 					id="nested-light"
 					data-fs-theme="light"
 					class="fs-stack"
-					style="background: var(--fs-bg); color: var(--fs-text); padding: 1rem"
+					style="padding: 1rem"
 				>
 					<p id="nested-subtle" style="color: var(--fs-text-subtle)">Texte discret en thème clair</p>
 					<div id="nested-box" style="border: 1px solid var(--fs-line); padding: 1rem">

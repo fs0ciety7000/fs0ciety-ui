@@ -25,6 +25,12 @@
 		-webkit-text-size-adjust: 100%;
 	}
 
+	/* Nested themed blocks paint their own surface (html is handled above). */
+	:where([data-fs-theme]:not(html)) {
+		background-color: var(--fs-bg);
+		color: var(--fs-text);
+	}
+
 	:where(h1) {
 		font-size: var(--fs-text-2xl-size);
 		line-height: var(--fs-text-2xl-line-height);

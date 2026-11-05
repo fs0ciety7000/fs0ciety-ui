@@ -122,6 +122,13 @@ describe("specificity helpers", () => {
 describe("base", () => {
 	const base = rulesOf("base");
 
+	it("nested themed elements get their own surface and text color", () => {
+		const rule = find(base, ":where([data-fs-theme]:not(html))");
+		expect(rule).toBeDefined();
+		expect(decl(rule as Rule, "background-color")).toBe("var(--fs-bg)");
+		expect(decl(rule as Rule, "color")).toBe("var(--fs-text)");
+	});
+
 	it("focus ring per DESIGN", () => {
 		const rule = find(base, ":focus-visible");
 		expect(rule).toBeDefined();
