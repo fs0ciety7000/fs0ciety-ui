@@ -32,6 +32,39 @@ describe("wcagRatio sanity", () => {
 	});
 });
 
+describe("CONTRAST_RULES coverage", () => {
+	it("covers exactly the promised pairs", () => {
+		const surfaces = ["bg", "surface", "surface-raised"];
+		const expected = [
+			...[
+				"text",
+				"text-strong",
+				"text-muted",
+				"text-subtle",
+				"link",
+				"link-hover",
+				"info",
+				"success",
+				"warning",
+				"danger",
+				"accent",
+			].map((fg) => ({ fg, bg: [...surfaces].sort(), min: 4.5 })),
+			{ fg: "on-accent", bg: ["accent"], min: 4.5 },
+			{ fg: "on-danger", bg: ["danger"], min: 4.5 },
+			{ fg: "line-strong", bg: [...surfaces].sort(), min: 3 },
+			{ fg: "focus-ring", bg: [...surfaces].sort(), min: 3 },
+		];
+		const norm = (r: { fg: string; bg: string[]; min: number }) => ({
+			fg: r.fg,
+			bg: [...r.bg].sort(),
+			min: r.min,
+		});
+		const byFg = (a: { fg: string }, b: { fg: string }) =>
+			a.fg.localeCompare(b.fg);
+		expect(CONTRAST_RULES.map(norm).sort(byFg)).toEqual(expected.sort(byFg));
+	});
+});
+
 describe("semantic pairs meet WCAG", () => {
 	for (const theme of THEMES) {
 		for (const rule of CONTRAST_RULES) {
