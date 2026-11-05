@@ -212,15 +212,12 @@ describe("repo-wide rules", () => {
 		}
 	});
 
-	it("base tokens do not collide with color.* or theme.*", () => {
-		for (const path of tokens.keys()) {
-			if (
-				/^(font|text|space|width|measure|control|stroke|icon|duration|ease)(\.|$)/.test(
-					path,
-				)
-			) {
-				expect(path).not.toMatch(/^(color|theme)\./);
-			}
+	it("base token files do not use the color or theme root keys", async () => {
+		const dir = new URL("../tokens/base", import.meta.url).pathname;
+		const roots = new Set(Object.keys(await readTokens(dir)));
+		expect(roots.size).toBeGreaterThan(0);
+		for (const reserved of ["color", "theme"]) {
+			expect(roots.has(reserved)).toBe(false);
 		}
 	});
 });
