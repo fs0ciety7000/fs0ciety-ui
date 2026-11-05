@@ -1,2 +1,43 @@
 @layer fs.reset {
+	:where(*),
+	:where(*)::before,
+	:where(*)::after {
+		box-sizing: border-box;
+	}
+
+	:where(body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd) {
+		margin: 0;
+	}
+
+	:where(img, svg, video, canvas) {
+		display: block;
+		max-width: 100%;
+	}
+
+	:where(input, button, textarea, select) {
+		font: inherit;
+		color: inherit;
+	}
+
+	:where(button) {
+		cursor: pointer;
+	}
+
+	:where(textarea) {
+		resize: vertical;
+	}
+
+	:where(h1, h2, h3, h4, h5, h6) {
+		text-wrap: balance;
+	}
+
+	:where(p) {
+		text-wrap: pretty;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		:where(html) {
+			scroll-behavior: smooth;
+		}
+	}
 }

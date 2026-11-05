@@ -1,0 +1,5 @@
+@layer fs.base {
+	.probe {
+		color: var(--fs-color-ink-950);
+	}
+}

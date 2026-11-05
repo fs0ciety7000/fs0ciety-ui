@@ -1,2 +1,118 @@
 @layer fs.base {
+	:root,
+	[data-fs-theme="schematic"],
+	[data-fs-theme="night"] {
+		color-scheme: dark;
+	}
+
+	[data-fs-theme="light"] {
+		color-scheme: light;
+	}
+
+	@media (prefers-color-scheme: light) {
+		:root:not([data-fs-theme]) {
+			color-scheme: light;
+		}
+	}
+
+	:where(html) {
+		background: var(--fs-bg);
+		color: var(--fs-text);
+		font-family: var(--fs-font-sans);
+		font-size: var(--fs-text-md-size);
+		line-height: var(--fs-text-md-line-height);
+		scroll-padding-top: var(--fs-scroll-offset, 0px);
+		-webkit-text-size-adjust: 100%;
+	}
+
+	:where(h1) {
+		font-size: var(--fs-text-2xl-size);
+		line-height: var(--fs-text-2xl-line-height);
+		letter-spacing: var(--fs-text-2xl-tracking);
+		font-weight: var(--fs-text-2xl-weight);
+	}
+
+	:where(h2) {
+		font-size: var(--fs-text-xl-size);
+		line-height: var(--fs-text-xl-line-height);
+		letter-spacing: var(--fs-text-xl-tracking);
+		font-weight: var(--fs-text-xl-weight);
+	}
+
+	:where(h1, h2) {
+		font-family: var(--fs-font-display);
+		font-stretch: var(--fs-font-display-stretch);
+		text-transform: uppercase;
+		color: var(--fs-text-strong);
+	}
+
+	:where(h3) {
+		font-family: var(--fs-font-sans);
+		font-size: var(--fs-text-lg-size);
+		line-height: var(--fs-text-lg-line-height);
+		letter-spacing: var(--fs-text-lg-tracking);
+		font-weight: 600;
+		color: var(--fs-text-strong);
+	}
+
+	:where(h4) {
+		font-family: var(--fs-font-sans);
+		font-size: var(--fs-text-md-size);
+		line-height: var(--fs-text-md-line-height);
+		letter-spacing: var(--fs-text-md-tracking);
+		font-weight: 600;
+		color: var(--fs-text-strong);
+	}
+
+	:where(p, li) {
+		max-width: var(--fs-measure);
+	}
+
+	:where(a) {
+		color: var(--fs-link);
+		text-underline-offset: 0.2em;
+		text-decoration-thickness: var(--fs-stroke-hairline);
+	}
+
+	:where(a:hover) {
+		color: var(--fs-link-hover);
+	}
+
+	:where(code, kbd, samp, pre) {
+		font-family: var(--fs-font-mono);
+		font-variant-numeric: tabular-nums slashed-zero;
+	}
+
+	:where(hr) {
+		border: 0;
+		border-top: var(--fs-stroke-hairline) solid var(--fs-line);
+	}
+
+	::selection {
+		background: var(--fs-accent);
+		color: var(--fs-on-accent);
+	}
+
+	:focus-visible {
+		outline: var(--fs-stroke-focus) solid var(--fs-focus-ring);
+		outline-offset: 2px;
+	}
+
+	:focus:not(:focus-visible) {
+		outline: none;
+	}
+
+	@media (prefers-contrast: more) {
+		:root,
+		[data-fs-theme] {
+			--fs-line: var(--fs-line-strong);
+			--fs-text-subtle: var(--fs-text-muted);
+		}
+	}
+
+	@media (forced-colors: active) {
+		:focus-visible {
+			outline-color: Highlight;
+		}
+	}
 }

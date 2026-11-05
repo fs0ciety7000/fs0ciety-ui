@@ -1,0 +1,11 @@
+@layer fs.base {
+	.probe {
+		color: CanvasText;
+		background: Canvas;
+		outline-color: Highlight;
+		border-color: transparent;
+		fill: currentColor;
+		accent-color: inherit;
+		box-shadow: 0 0 0 1px color-mix(in oklch, var(--fs-text) 20%, transparent);
+	}
+}
