@@ -1,0 +1,78 @@
+{
+	"duration": {
+		"instant": {
+			"$type": "duration",
+			"$value": {
+				"value": 120,
+				"unit": "ms"
+			}
+		},
+		"fast": {
+			"$type": "duration",
+			"$value": {
+				"value": 150,
+				"unit": "ms"
+			}
+		},
+		"base": {
+			"$type": "duration",
+			"$value": {
+				"value": 250,
+				"unit": "ms"
+			}
+		},
+		"moderate": {
+			"$type": "duration",
+			"$value": {
+				"value": 450,
+				"unit": "ms"
+			}
+		},
+		"slow": {
+			"$type": "duration",
+			"$value": {
+				"value": 700,
+				"unit": "ms"
+			}
+		},
+		"draw": {
+			"$type": "duration",
+			"$value": {
+				"value": 1400,
+				"unit": "ms"
+			}
+		}
+	},
+	"ease": {
+		"standard": {
+			"$type": "cubicBezier",
+			"$value": [0.165, 0.84, 0.44, 1]
+		},
+		"rise": {
+			"$type": "cubicBezier",
+			"$value": [0.23, 1, 0.32, 1]
+		},
+		"draw": {
+			"$type": "cubicBezier",
+			"$value": [0.645, 0.045, 0.355, 1]
+		},
+		"boot": {
+			"$type": "cubicBezier",
+			"$value": [0.19, 1, 0.22, 1]
+		},
+		"glitch": {
+			"$type": "string",
+			"$value": "steps(1)",
+			"$extensions": {
+				"fs0.raw": true
+			}
+		},
+		"linear": {
+			"$type": "string",
+			"$value": "linear",
+			"$extensions": {
+				"fs0.raw": true
+			}
+		}
+	}
+}

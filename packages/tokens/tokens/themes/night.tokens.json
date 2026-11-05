@@ -137,7 +137,8 @@
 			"icon": {
 				"cap": {
 					"$type": "string",
-					"$value": "round"
+					"$value": "round",
+					"$extensions": { "fs0.raw": true }
 				}
 			}
 		}

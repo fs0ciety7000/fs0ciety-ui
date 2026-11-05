@@ -137,7 +137,8 @@
 			"icon": {
 				"cap": {
 					"$type": "string",
-					"$value": "square"
+					"$value": "square",
+					"$extensions": { "fs0.raw": true }
 				}
 			}
 		}
