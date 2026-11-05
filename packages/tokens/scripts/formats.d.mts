@@ -12,3 +12,8 @@ export const kebabTransform: unknown;
 export function cssVarsFormat(args: {
 	dictionary: { allTokens: unknown[] };
 }): string;
+type ResolvedMap = Map<string, { $type?: string; $value: unknown }>;
+export function roleNames(resolved: ResolvedMap): string[];
+export function tsFormat(resolved: ResolvedMap): string;
+export function tailwindFormat(resolved: ResolvedMap): string;
+export function figmaFormat(resolved: ResolvedMap, theme: string): string;
