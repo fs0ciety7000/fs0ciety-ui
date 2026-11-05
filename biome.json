@@ -13,7 +13,8 @@
 			"!skills-lock.json",
 			"!**/dist",
 			"!**/.astro",
-			"!**/.turbo"
+			"!**/.turbo",
+			"!docs/mockups"
 		]
 	},
 	"formatter": {

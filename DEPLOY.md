@@ -17,16 +17,16 @@ Deux sorties distinctes :
 
 ## Variables
 
-| Nom | Quand | Rôle |
-| --- | --- | --- |
-| *(aucune)* | | La doc est statique et n'a besoin d'aucune variable au build ni à l'exécution. |
+| Nom        | Quand | Rôle                                                                           |
+| ---------- | ----- | ------------------------------------------------------------------------------ |
+| _(aucune)_ |       | La doc est statique et n'a besoin d'aucune variable au build ni à l'exécution. |
 
 CI GitHub (pas Coolify) :
 
-| Nom | Où | Rôle |
-| --- | --- | --- |
-| `NPM_TOKEN` | secret du dépôt GitHub | publication npm du scope `@fs0lab` (jeton « Automation » ou granulaire, écriture sur `@fs0lab/*`) |
-| `GITHUB_TOKEN` | fourni par Actions | PR de version changesets |
+| Nom            | Où                     | Rôle                                                                                              |
+| -------------- | ---------------------- | ------------------------------------------------------------------------------------------------- |
+| `NPM_TOKEN`    | secret du dépôt GitHub | publication npm du scope `@fs0lab` (jeton « Automation » ou granulaire, écriture sur `@fs0lab/*`) |
+| `GITHUB_TOKEN` | fourni par Actions     | PR de version changesets                                                                          |
 
 Les valeurs vivent dans la ressource concernée et dans `secrets/` (chiffré). Jamais dans le dépôt.
 
