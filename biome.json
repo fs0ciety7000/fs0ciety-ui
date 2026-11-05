@@ -28,6 +28,16 @@
 			"preset": "recommended"
 		}
 	},
+	"overrides": [
+		{
+			"includes": ["packages/css/src/effects.css"],
+			"linter": {
+				"rules": {
+					"complexity": { "noImportantStyles": "off" }
+				}
+			}
+		}
+	],
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "double"

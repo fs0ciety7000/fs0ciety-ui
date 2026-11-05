@@ -1,2 +1,247 @@
 @layer fs.effects {
+	/* scan: CRT lines over the host. Children sit above the overlay. */
+	[data-fs-fx~="scan"] {
+		position: relative;
+		isolation: isolate;
+	}
+
+	[data-fs-fx~="scan"]::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+		background-image: repeating-linear-gradient(
+			0deg,
+			color-mix(in oklch, var(--fs-link) 5%, transparent) 0 1px,
+			transparent 1px 3px
+		);
+	}
+
+	[data-fs-fx~="scan"] > *,
+	[data-fs-fx~="sweep"] > * {
+		position: relative;
+		z-index: 1;
+	}
+
+	/* sweep: a 60px band travelling top to bottom. `top` is animated on purpose:
+	 * translate % on a pseudo-element refers to the pseudo-element, not its parent. */
+	[data-fs-fx~="sweep"] {
+		position: relative;
+		isolation: isolate;
+		overflow: clip;
+	}
+
+	[data-fs-fx~="sweep"]::before {
+		content: "";
+		position: absolute;
+		inset-inline: 0;
+		top: 0;
+		z-index: 0;
+		height: 60px;
+		pointer-events: none;
+		background-image: linear-gradient(
+			180deg,
+			transparent,
+			color-mix(in oklch, var(--fs-link) 7%, transparent),
+			transparent
+		);
+		animation: fs-sweep 5s linear infinite;
+	}
+
+	@keyframes fs-sweep {
+		from {
+			top: -60px;
+		}
+
+		to {
+			top: 100%;
+		}
+	}
+
+	/* bleed: chromatic split with an occasional jitter. */
+	[data-fs-fx~="bleed"] {
+		text-shadow:
+			-2px 0 color-mix(in oklch, var(--fs-cable-1) 85%, transparent),
+			2px 0 color-mix(in oklch, var(--fs-link) 85%, transparent);
+		animation: fs-bleed-jitter 4s steps(1) infinite;
+	}
+
+	@keyframes fs-bleed-jitter {
+		0%,
+		88%,
+		100% {
+			text-shadow:
+				-2px 0 color-mix(in oklch, var(--fs-cable-1) 85%, transparent),
+				2px 0 color-mix(in oklch, var(--fs-link) 85%, transparent);
+		}
+
+		90% {
+			text-shadow:
+				-6px 0 color-mix(in oklch, var(--fs-cable-1) 90%, transparent),
+				5px 1px color-mix(in oklch, var(--fs-link) 90%, transparent);
+		}
+
+		93% {
+			text-shadow:
+				3px 0 color-mix(in oklch, var(--fs-cable-1) 90%, transparent),
+				-4px 0 color-mix(in oklch, var(--fs-link) 90%, transparent);
+		}
+	}
+
+	/* grid: 8px minor and 64px major lines. */
+	[data-fs-fx~="grid"] {
+		background-image:
+			linear-gradient(
+				to right,
+				color-mix(in oklch, var(--fs-line) 35%, transparent) 1px,
+				transparent 1px
+			),
+			linear-gradient(
+				to bottom,
+				color-mix(in oklch, var(--fs-line) 35%, transparent) 1px,
+				transparent 1px
+			),
+			linear-gradient(
+				to right,
+				color-mix(in oklch, var(--fs-line) 12%, transparent) 1px,
+				transparent 1px
+			),
+			linear-gradient(
+				to bottom,
+				color-mix(in oklch, var(--fs-line) 12%, transparent) 1px,
+				transparent 1px
+			);
+		background-size:
+			64px 64px,
+			64px 64px,
+			8px 8px,
+			8px 8px;
+	}
+
+	/* glitch-hover */
+	[data-fs-fx~="glitch-hover"] {
+		transition:
+			transform var(--fs-duration-instant) steps(2),
+			box-shadow var(--fs-duration-instant) steps(2);
+	}
+
+	[data-fs-fx~="glitch-hover"]:hover,
+	[data-fs-fx~="glitch-hover"]:focus-visible {
+		transform: translateX(-2px);
+		box-shadow:
+			4px 0 0 var(--fs-link),
+			-4px 0 0 var(--fs-cable-3);
+	}
+
+	/* cursor: decorative caret, `aria-hidden` in markup. */
+	.fs-cursor {
+		display: inline-block;
+		width: 0.6em;
+		height: 1em;
+		vertical-align: text-bottom;
+		background: currentColor;
+		animation: fs-cursor-blink 1s steps(1) infinite;
+	}
+
+	@keyframes fs-cursor-blink {
+		0%,
+		50% {
+			opacity: 1;
+		}
+
+		50.01%,
+		100% {
+			opacity: 0;
+		}
+	}
+
+	/* Light theme: the overlays are dark-theme decoration. */
+	[data-fs-theme="light"] [data-fs-fx~="scan"]::after,
+	[data-fs-theme="light"][data-fs-fx~="scan"]::after,
+	[data-fs-theme="light"] [data-fs-fx~="sweep"]::before,
+	[data-fs-theme="light"][data-fs-fx~="sweep"]::before {
+		display: none;
+	}
+
+	@media (prefers-color-scheme: light) {
+		:root:not([data-fs-theme]) [data-fs-fx~="scan"]::after,
+		:root:not([data-fs-theme]) [data-fs-fx~="sweep"]::before {
+			display: none;
+		}
+	}
+
+	/* Paused: freeze animations on and under the marked element. */
+	[data-fs-motion="paused"] :is([data-fs-fx~="bleed"], .fs-cursor),
+	[data-fs-motion="paused"]:is([data-fs-fx~="bleed"], .fs-cursor),
+	[data-fs-motion="paused"] [data-fs-fx~="sweep"]::before,
+	[data-fs-motion="paused"][data-fs-fx~="sweep"]::before {
+		animation-play-state: paused;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		[data-fs-fx~="bleed"],
+		[data-fs-fx~="sweep"]::before,
+		.fs-cursor {
+			animation: none !important;
+		}
+
+		[data-fs-fx~="sweep"]::before {
+			display: none !important;
+		}
+
+		[data-fs-fx~="glitch-hover"],
+		[data-fs-fx~="glitch-hover"]:hover,
+		[data-fs-fx~="glitch-hover"]:focus-visible {
+			transition: none !important;
+			transform: none !important;
+			box-shadow: none !important;
+		}
+
+		.fs-cursor {
+			opacity: 1;
+		}
+	}
+
+	@media (prefers-contrast: more) {
+		[data-fs-fx~="scan"]::after,
+		[data-fs-fx~="sweep"]::before {
+			display: none;
+		}
+
+		[data-fs-fx~="grid"] {
+			background-image: none;
+		}
+
+		[data-fs-fx~="bleed"] {
+			text-shadow: none;
+		}
+
+		[data-fs-fx~="glitch-hover"]:hover,
+		[data-fs-fx~="glitch-hover"]:focus-visible {
+			transform: none;
+			box-shadow: none;
+		}
+	}
+
+	@media (forced-colors: active) {
+		[data-fs-fx~="scan"]::after,
+		[data-fs-fx~="sweep"]::before {
+			display: none !important;
+		}
+
+		[data-fs-fx~="grid"] {
+			background-image: none !important;
+		}
+
+		[data-fs-fx~="bleed"] {
+			text-shadow: none !important;
+		}
+
+		[data-fs-fx~="glitch-hover"]:hover,
+		[data-fs-fx~="glitch-hover"]:focus-visible {
+			transform: none !important;
+			box-shadow: none !important;
+		}
+	}
 }

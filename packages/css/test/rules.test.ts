@@ -1,4 +1,4 @@
-import { readdirSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
@@ -255,6 +255,14 @@ describe("utilities", () => {
 		).toBe(false);
 	});
 
+	it("sr-only-focusable is hidden by default like sr-only", () => {
+		const hidden = single("fs-sr-only-focusable");
+		const ref = single("fs-sr-only");
+		expect(hidden).toBeDefined();
+		for (const d of ref.declarations)
+			expect(decl(hidden, d.property), d.property).toBe(d.value);
+	});
+
 	it("sr-only-focusable reveals on :focus-visible", () => {
 		const r = util.find((r) =>
 			r.selectors.includes(".fs-sr-only-focusable:focus-visible"),
@@ -262,6 +270,10 @@ describe("utilities", () => {
 		expect(r).toBeDefined();
 		expect(decl(r as Rule, "clip-path")).toBe("none");
 		expect(decl(r as Rule, "position")).toBe("static");
+		expect(decl(r as Rule, "width")).toBe("auto");
+		expect(decl(r as Rule, "height")).toBe("auto");
+		expect(decl(r as Rule, "overflow")).toBe("visible");
+		expect(decl(r as Rule, "margin")).toBe("0");
 	});
 
 	it("containers use the width tokens and a gutter", () => {
@@ -348,5 +360,69 @@ describe("utilities", () => {
 		);
 		expect(decl(single("fs-muted"), "color")).toBe("var(--fs-text-muted)");
 		expect(decl(single("fs-subtle"), "color")).toBe("var(--fs-text-subtle)");
+	});
+});
+
+describe("var(--fs-*) references", () => {
+	const KNOBS = new Set([
+		"--fs-gutter",
+		"--fs-stack-gap",
+		"--fs-cluster-gap",
+		"--fs-scroll-offset",
+	]);
+	const strip = (css: string) => css.replace(/\/\*[\s\S]*?\*\//g, "");
+	const tokens = new Set(
+		[
+			...readFileSync(
+				join(root, "..", "tokens", "dist", "css", "tokens.css"),
+				"utf8",
+			).matchAll(/(--fs-[\w-]+)\s*:/g),
+		].map((m) => m[1] as string),
+	);
+
+	/** Offending references in the given CSS sources, as "file: --fs-name (why)". */
+	function offenders(files: Record<string, string>): string[] {
+		const sources = Object.entries(files).map(
+			([name, css]) => [name, strip(css)] as const,
+		);
+		const setLocally = new Set(
+			sources.flatMap(([, css]) =>
+				[...css.matchAll(/(--fs-[\w-]+)\s*:/g)].map((m) => m[1] as string),
+			),
+		);
+		const out: string[] = [];
+		for (const [name, css] of sources)
+			for (const m of css.matchAll(/var\(\s*(--fs-[\w-]+)\s*(,)?/g)) {
+				const v = m[1] as string;
+				if (tokens.has(v)) continue;
+				if (KNOBS.has(v) && (m[2] || setLocally.has(v))) continue;
+				out.push(
+					`${name}: ${v} (${KNOBS.has(v) ? "knob without fallback" : "unknown token"})`,
+				);
+			}
+		return out;
+	}
+
+	it("every var(--fs-*) is a token or an allowed local knob", () => {
+		const files = Object.fromEntries(
+			srcFiles.map((f) => [f, readFileSync(join(root, "src", f), "utf8")]),
+		);
+		expect(tokens.size).toBeGreaterThan(50);
+		expect(offenders(files)).toEqual([]);
+	});
+
+	it("fails on a typo'd token and on a knob without fallback", () => {
+		expect(offenders({ "x.css": ".a{color:var(--fs-text-subtel)}" })).toEqual([
+			"x.css: --fs-text-subtel (unknown token)",
+		]);
+		expect(offenders({ "x.css": ".a{margin:var(--fs-gutter)}" })).toEqual([
+			"x.css: --fs-gutter (knob without fallback)",
+		]);
+		expect(offenders({ "x.css": ".a{margin:var(--fs-gutter, 1rem)}" })).toEqual(
+			[],
+		);
+		expect(
+			offenders({ "x.css": ".a{--fs-gutter:1rem}.b{margin:var(--fs-gutter)}" }),
+		).toEqual([]);
 	});
 });
