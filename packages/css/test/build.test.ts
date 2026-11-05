@@ -36,9 +36,13 @@ describe("buildCss", () => {
 		const css = await read(`${name}.css`);
 		expect(stripComments(css).startsWith(ORDER)).toBe(true);
 		expect(css).not.toContain("--fs-bg:");
-		const blocks =
-			css.match(new RegExp(`@layer fs\\.${name}\\b(?!\\s*,)`, "g")) ?? [];
-		expect(blocks.length).toBeLessThanOrEqual(1);
+		const own = css.match(new RegExp(`@layer fs\\.${name}\\s*[{;]`, "g")) ?? [];
+		expect(own).toHaveLength(1);
+		for (const other of [...LAYERS, "tokens", "components"].filter(
+			(l) => l !== name,
+		)) {
+			expect(css).not.toMatch(new RegExp(`@layer fs\\.${other}\\s*[{;]`));
+		}
 	});
 
 	it("colors are not lowered", async () => {
