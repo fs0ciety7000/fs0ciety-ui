@@ -10,6 +10,7 @@
 		"typecheck": "astro check"
 	},
 	"dependencies": {
+		"@fs0lab/tokens": "workspace:*",
 		"astro": "^7.4.5"
 	},
 	"devDependencies": {

@@ -1,7 +1,6 @@
 {
 	"name": "@fs0lab/tokens",
 	"version": "0.0.0",
-	"private": true,
 	"description": "fs0ciety design tokens (W3C DTCG) → CSS variables, JS/TS, Tailwind preset, Figma JSON.",
 	"license": "MIT",
 	"type": "module",
@@ -17,13 +16,22 @@
 	"exports": {
 		".": {
 			"types": "./dist/index.d.mts",
+			"import": "./dist/index.mjs",
 			"default": "./dist/index.mjs"
-		}
+		},
+		"./css": "./dist/css/tokens.css",
+		"./tailwind.css": "./dist/tailwind.css",
+		"./figma/*": "./dist/figma/*",
+		"./tokens/*": "./tokens/*",
+		"./package.json": "./package.json"
 	},
 	"files": [
-		"dist"
+		"dist",
+		"tokens"
 	],
-	"sideEffects": false,
+	"sideEffects": [
+		"**/*.css"
+	],
 	"scripts": {
 		"gen": "node scripts/build.mjs",
 		"build": "pnpm gen && tsdown",

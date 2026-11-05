@@ -1,6 +1,7 @@
 ---
+import "@fs0lab/tokens/css";
 ---
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,5 +9,30 @@
   </head>
   <body>
     <h1>fs0ciety</h1>
+    <label for="theme">Thème</label>
+    <select id="theme">
+      <option value="schematic">schematic</option>
+      <option value="night">night</option>
+      <option value="light">light</option>
+    </select>
+    <script>
+      const select = document.getElementById("theme");
+      select?.addEventListener("change", (event) => {
+        document.documentElement.dataset.fsTheme = (event.target as HTMLSelectElement).value;
+      });
+    </script>
+    <style is:global>
+      body {
+        background: var(--fs-bg);
+        color: var(--fs-text);
+        font-family: var(--fs-font-sans);
+      }
+      h1 {
+        font-family: var(--fs-font-display);
+        font-stretch: var(--fs-font-display-stretch);
+        text-transform: uppercase;
+        color: var(--fs-text-strong);
+      }
+    </style>
   </body>
 </html>

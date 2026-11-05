@@ -13,8 +13,6 @@ let ts: string;
 beforeAll(async () => {
 	outDir = await mkdtemp(join(tmpdir(), "fs-tokens-js-"));
 	await buildTokens({ outDir });
-	// Real build: writes src/generated and dist/index.mjs for the SSR check.
-	execFileSync("pnpm", ["build"], { cwd: PKG, stdio: "pipe" });
 	ts = await readFile(join(outDir, "generated", "tokens.ts"), "utf8");
 }, 120_000);
 

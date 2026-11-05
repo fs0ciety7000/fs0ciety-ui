@@ -1,0 +1,11 @@
+{
+	"extends": ["//"],
+	"tasks": {
+		"build": {
+			"outputs": ["dist/**", "src/generated/**"]
+		},
+		"test": {
+			"dependsOn": ["build"]
+		}
+	}
+}
