@@ -4,6 +4,9 @@
 		"build": {
 			"outputs": ["dist/**", "src/generated/**"]
 		},
+		"typecheck": {
+			"dependsOn": ["build"]
+		},
 		"test": {
 			"dependsOn": ["build"]
 		}
