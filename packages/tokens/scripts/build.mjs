@@ -21,7 +21,7 @@ export async function buildTokens({
 	// tsdown runs with clean: false, so drop stale CSS output ourselves.
 	const isDefault = outDir === join(PKG_DIR, "dist");
 	if (isDefault) {
-		for (const stale of ["css", "figma", "tailwind.css"]) {
+		for (const stale of ["css", "figma", "tailwind.css", "css.d.mts"]) {
 			await rm(join(outDir, stale), { recursive: true, force: true });
 		}
 	}
@@ -52,6 +52,8 @@ export async function buildTokens({
 		: join(outDir, "generated");
 	await mkdir(generatedDir, { recursive: true });
 	await writeFile(join(generatedDir, "tokens.ts"), tsFormat(resolved));
+	// Types for the side-effect-only `@fs0lab/tokens/css` import (TS 6).
+	await writeFile(join(outDir, "css.d.mts"), "export {};\n");
 	await writeFile(join(outDir, "tailwind.css"), tailwindFormat(resolved));
 	await mkdir(join(outDir, "figma"), { recursive: true });
 	for (const theme of THEMES) {
