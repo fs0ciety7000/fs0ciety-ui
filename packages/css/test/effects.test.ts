@@ -80,13 +80,14 @@ describe("effects: values", () => {
 		expect(decl(host, "isolation")?.value).toBe("isolate");
 		const o = find('[data-fs-fx~="scan"]::after', (r) => !r.media);
 		expect(decl(o, "inset")?.value).toMatch(/^0/);
-		expect(decl(o, "z-index")?.value).toBe("0");
+		expect(decl(o, "z-index")?.value).toBe("-1");
 		const bg = norm(decl(o, "background-image")?.value ?? "");
 		expect(bg).toContain("repeating-linear-gradient(0deg");
 		expect(bg).toContain("var(--fs-link) 5%");
-		const kids = find('[data-fs-fx~="scan"] > *');
-		expect(decl(kids, "position")?.value).toBe("relative");
-		expect(decl(kids, "z-index")?.value).toBe("1");
+		expect(
+			rules.filter((r) => sels(r).some((x) => x.includes(">"))),
+			"no rule targets children",
+		).toEqual([]);
 	});
 
 	it("scan and sweep are hidden in the light theme and the OS-light fallback", () => {
@@ -99,7 +100,11 @@ describe("effects: values", () => {
 				`:root:not([data-fs-theme]) ${p}`,
 				(r) => !!r.media?.includes("prefers-color-scheme:light"),
 			);
-			for (const r of [a, b, c]) {
+			const d = find(
+				`:root:not([data-fs-theme])${p}`,
+				(r) => !!r.media?.includes("prefers-color-scheme:light"),
+			);
+			for (const r of [a, b, c, d]) {
 				expect(r, `${fx}`).toBeDefined();
 				expect(decl(r, "display")?.value).toBe("none");
 			}
@@ -109,10 +114,14 @@ describe("effects: values", () => {
 	it("sweep band", () => {
 		const host = find('[data-fs-fx~="sweep"]');
 		expect(decl(host, "position")?.value).toBe("relative");
+		expect(decl(host, "isolation")?.value).toBe("isolate");
+		expect(decl(host, "overflow")).toBeUndefined();
 		const b = find('[data-fs-fx~="sweep"]::before', (r) => !r.media);
 		expect(decl(b, "position")?.value).toBe("absolute");
-		expect(decl(b, "height")?.value).toBe("60px");
-		expect(decl(b, "z-index")?.value).toBe("0");
+		expect(decl(b, "inset")?.value).toMatch(/^0/);
+		expect(norm(decl(b, "background-size")?.value ?? "")).toBe("100% 60px");
+		expect(decl(b, "background-repeat")?.value).toBe("no-repeat");
+		expect(decl(b, "z-index")?.value).toBe("-1");
 		expect(decl(b, "animation")?.value).toMatch(
 			/^5s linear infinite fs-sweep$/,
 		);
@@ -120,8 +129,11 @@ describe("effects: values", () => {
 			"var(--fs-link) 7%",
 		);
 		expect(keyframesOf("effects.css")["fs-sweep"]).toEqual([
-			{ offsets: [0], decls: { top: "-60px" } },
-			{ offsets: [100], decls: { top: "100%" } },
+			{ offsets: [0], decls: { "background-position": "0 -60px" } },
+			{
+				offsets: [100],
+				decls: { "background-position": "0 calc(100% + 60px)" },
+			},
 		]);
 	});
 
@@ -217,10 +229,7 @@ describe("effects: motion", () => {
 								? !x.startsWith("[data-fs-motion=paused] ")
 								: x.startsWith("[data-fs-motion=paused] ")) &&
 							x.includes(compound) &&
-							(pseudo
-								? x.endsWith(`:${pseudo}`)
-								: !/:(before|after)$/.test(x)) &&
-							(pseudo ? true : !x.includes("::")),
+							(pseudo ? x.endsWith(`:${pseudo}`) : !/:(before|after)$/.test(x)),
 					),
 				);
 			expect(covered(false), `paused descendant: ${s}`).toBe(true);
@@ -236,10 +245,18 @@ describe("effects: motion", () => {
 				decl(r, "display")?.value === "none",
 		);
 		expect(decl(sweep, "display")?.important).toBe(true);
+		const base = reduce.find((r) => hasSel(r, '[data-fs-fx~="glitch-hover"]'));
+		expect(decl(base, "transition")?.value).toBe("none");
+		expect(decl(base, "transition")?.important).toBe(true);
+		expect(
+			decl(base, "transform"),
+			"resting transform survives",
+		).toBeUndefined();
+		expect(decl(base, "box-shadow"), "resting shadow survives").toBeUndefined();
 		const g = reduce.find((r) =>
 			hasSel(r, '[data-fs-fx~="glitch-hover"]:hover'),
 		);
-		for (const p of ["transition", "transform", "box-shadow"]) {
+		for (const p of ["transform", "box-shadow"]) {
 			expect(decl(g, p)?.value, p).toBe("none");
 			expect(decl(g, p)?.important, p).toBe(true);
 		}
@@ -289,6 +306,7 @@ describe("effects: motion", () => {
 			expect(decl(grid, "background-image")?.value, media).toBe("none");
 			const bleed = m.find((x) => hasSel(x, '[data-fs-fx~="bleed"]'));
 			expect(decl(bleed, "text-shadow")?.value, media).toBe("none");
+			expect(decl(bleed, "animation")?.value, media).toBe("none");
 			const gh = m.find((x) => hasSel(x, '[data-fs-fx~="glitch-hover"]:hover'));
 			expect(decl(gh, "transform")?.value, media).toBe("none");
 			expect(decl(gh, "box-shadow")?.value, media).toBe("none");
@@ -316,6 +334,26 @@ describe("effects: motion", () => {
 		expect(at93).toContain("3px 0 color-mix(in oklch, var(--fs-cable-1) 90%");
 		expect(at93).toContain("-4px 0 color-mix(in oklch, var(--fs-link) 90%");
 		expect(frames.length).toBe(3);
+	});
+
+	it("!important only appears in reduced-motion or forced-colors", () => {
+		const important = rules.filter((r) =>
+			r.declarations.some((d) => d.important),
+		);
+		expect(important.length).toBeGreaterThan(0);
+		for (const r of important)
+			expect(
+				/prefers-reduced-motion|forced-colors/.test(r.media ?? ""),
+				r.selectors.join(),
+			).toBe(true);
+	});
+
+	it("forced colors keeps the cursor visible", () => {
+		const c = inMedia("forced-colors: active").find((r) =>
+			hasSel(r, ".fs-cursor"),
+		);
+		expect(decl(c, "forced-color-adjust")?.value).toBe("none");
+		expect(decl(c, "background")?.value).toMatch(/CanvasText/i);
 	});
 
 	it("cursor blinks at 1 Hz", () => {

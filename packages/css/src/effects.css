@@ -1,5 +1,5 @@
 @layer fs.effects {
-	/* scan: CRT lines over the host. Children sit above the overlay. */
+	/* scan: CRT lines over the host background, behind its content. */
 	[data-fs-fx~="scan"] {
 		position: relative;
 		isolation: isolate;
@@ -9,7 +9,7 @@
 		content: "";
 		position: absolute;
 		inset: 0;
-		z-index: 0;
+		z-index: -1;
 		pointer-events: none;
 		background-image: repeating-linear-gradient(
 			0deg,
@@ -18,27 +18,18 @@
 		);
 	}
 
-	[data-fs-fx~="scan"] > *,
-	[data-fs-fx~="sweep"] > * {
-		position: relative;
-		z-index: 1;
-	}
-
-	/* sweep: a 60px band travelling top to bottom. `top` is animated on purpose:
-	 * translate % on a pseudo-element refers to the pseudo-element, not its parent. */
+	/* sweep: a 60px band travelling top to bottom. Paint-only (background-position),
+	 * so nothing overflows; the overlay sits behind content (z-index -1). */
 	[data-fs-fx~="sweep"] {
 		position: relative;
 		isolation: isolate;
-		overflow: clip;
 	}
 
 	[data-fs-fx~="sweep"]::before {
 		content: "";
 		position: absolute;
-		inset-inline: 0;
-		top: 0;
-		z-index: 0;
-		height: 60px;
+		inset: 0;
+		z-index: -1;
 		pointer-events: none;
 		background-image: linear-gradient(
 			180deg,
@@ -46,16 +37,18 @@
 			color-mix(in oklch, var(--fs-link) 7%, transparent),
 			transparent
 		);
+		background-size: 100% 60px;
+		background-repeat: no-repeat;
 		animation: fs-sweep 5s linear infinite;
 	}
 
 	@keyframes fs-sweep {
 		from {
-			top: -60px;
+			background-position: 0 -60px;
 		}
 
 		to {
-			top: 100%;
+			background-position: 0 calc(100% + 60px);
 		}
 	}
 
@@ -166,7 +159,9 @@
 
 	@media (prefers-color-scheme: light) {
 		:root:not([data-fs-theme]) [data-fs-fx~="scan"]::after,
-		:root:not([data-fs-theme]) [data-fs-fx~="sweep"]::before {
+		:root:not([data-fs-theme])[data-fs-fx~="scan"]::after,
+		:root:not([data-fs-theme]) [data-fs-fx~="sweep"]::before,
+		:root:not([data-fs-theme])[data-fs-fx~="sweep"]::before {
 			display: none;
 		}
 	}
@@ -190,10 +185,12 @@
 			display: none !important;
 		}
 
-		[data-fs-fx~="glitch-hover"],
+		[data-fs-fx~="glitch-hover"] {
+			transition: none !important;
+		}
+
 		[data-fs-fx~="glitch-hover"]:hover,
 		[data-fs-fx~="glitch-hover"]:focus-visible {
-			transition: none !important;
 			transform: none !important;
 			box-shadow: none !important;
 		}
@@ -214,6 +211,7 @@
 		}
 
 		[data-fs-fx~="bleed"] {
+			animation: none;
 			text-shadow: none;
 		}
 
@@ -235,6 +233,7 @@
 		}
 
 		[data-fs-fx~="bleed"] {
+			animation: none !important;
 			text-shadow: none !important;
 		}
 
@@ -242,6 +241,13 @@
 		[data-fs-fx~="glitch-hover"]:focus-visible {
 			transform: none !important;
 			box-shadow: none !important;
+		}
+	}
+
+	@media (forced-colors: active) {
+		.fs-cursor {
+			forced-color-adjust: none;
+			background: CanvasText;
 		}
 	}
 }
