@@ -10,6 +10,7 @@
 		"includes": [
 			"**",
 			"!.claude",
+			"!.changeset",
 			"!skills-lock.json",
 			"!**/dist",
 			"!**/.astro",
