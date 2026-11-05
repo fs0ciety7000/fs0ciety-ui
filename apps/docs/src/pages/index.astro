@@ -1,5 +1,5 @@
 ---
-import "@fs0lab/tokens/css";
+import "@fs0lab/css";
 ---
 <html lang="fr">
   <head>
@@ -8,31 +8,28 @@ import "@fs0lab/tokens/css";
     <title>fs0ciety</title>
   </head>
   <body>
-    <h1>fs0ciety</h1>
-    <label for="theme">Thème</label>
-    <select id="theme">
-      <option value="schematic">schematic</option>
-      <option value="night">night</option>
-      <option value="light">light</option>
-    </select>
+    <main class="fs-container fs-stack" style="padding-block: var(--fs-space-12)">
+      <h1 data-fs-fx="scan bleed">fs0ciety</h1>
+      <p class="fs-label">Design system · Schematic Bleed</p>
+      <div class="fs-cluster">
+        <label for="theme" class="fs-label">Thème</label>
+        <select id="theme">
+          <option value="schematic">schematic</option>
+          <option value="night">night</option>
+          <option value="light">light</option>
+        </select>
+      </div>
+    </main>
     <script>
-      const select = document.getElementById("theme");
-      select?.addEventListener("change", (event) => {
-        document.documentElement.dataset.fsTheme = (event.target as HTMLSelectElement).value;
-      });
+      const select = document.getElementById("theme") as HTMLSelectElement | null;
+      if (select) {
+        select.value =
+          document.documentElement.dataset.fsTheme ??
+          (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "schematic");
+        select.addEventListener("change", () => {
+          document.documentElement.dataset.fsTheme = select.value;
+        });
+      }
     </script>
-    <style is:global>
-      body {
-        background: var(--fs-bg);
-        color: var(--fs-text);
-        font-family: var(--fs-font-sans);
-      }
-      h1 {
-        font-family: var(--fs-font-display);
-        font-stretch: var(--fs-font-display-stretch);
-        text-transform: uppercase;
-        color: var(--fs-text-strong);
-      }
-    </style>
   </body>
 </html>
