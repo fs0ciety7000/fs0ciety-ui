@@ -33,3 +33,6 @@ target/
 # Monorepo
 .turbo/
 .astro/
+
+# Générés par packages/tokens (Task 6)
+packages/tokens/src/generated/

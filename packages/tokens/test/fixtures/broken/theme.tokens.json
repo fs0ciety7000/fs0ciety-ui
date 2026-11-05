@@ -1,0 +1,10 @@
+{
+	"theme": {
+		"schematic": {
+			"color": {
+				"$type": "color",
+				"bg": { "$value": "{color.nope.1}" }
+			}
+		}
+	}
+}
