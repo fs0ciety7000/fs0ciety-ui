@@ -1,0 +1,6 @@
+@layer fs.base {
+	.probe {
+		color: oklch(0.7 0.1 250);
+		background: color-mix(in oklch, var(--probe) 50%, transparent);
+	}
+}

@@ -15,12 +15,32 @@
 		"provenance": true
 	},
 	"exports": {
-		".": "./src/index.css"
+		".": {
+			"types": "./dist/css.d.mts",
+			"default": "./dist/fs.css"
+		},
+		"./*.css": {
+			"types": "./dist/css.d.mts",
+			"default": "./dist/*.css"
+		},
+		"./package.json": "./package.json"
 	},
 	"files": [
-		"src"
+		"dist"
 	],
 	"sideEffects": [
 		"**/*.css"
-	]
+	],
+	"scripts": {
+		"build": "node scripts/build.mjs",
+		"test": "vitest run",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@fs0lab/tokens": "workspace:^0.1.0"
+	},
+	"devDependencies": {
+		"@types/node": "^22.20.5",
+		"lightningcss": "^1.33.0"
+	}
 }

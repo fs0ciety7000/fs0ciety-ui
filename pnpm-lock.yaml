@@ -48,7 +48,18 @@ importers:
 
   packages/core: {}
 
-  packages/css: {}
+  packages/css:
+    dependencies:
+      '@fs0lab/tokens':
+        specifier: workspace:^0.1.0
+        version: link:../tokens
+    devDependencies:
+      '@types/node':
+        specifier: ^22.20.5
+        version: 22.20.5
+      lightningcss:
+        specifier: ^1.33.0
+        version: 1.33.0
 
   packages/font: {}
 
