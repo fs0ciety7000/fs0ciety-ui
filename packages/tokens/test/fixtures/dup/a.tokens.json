@@ -1,0 +1,14 @@
+{
+	"color": {
+		"ink": {
+			"950": {
+				"$type": "color",
+				"$value": {
+					"colorSpace": "oklch",
+					"components": [0.1, 0, 0],
+					"hex": "#000000"
+				}
+			}
+		}
+	}
+}
