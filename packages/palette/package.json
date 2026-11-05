@@ -1,6 +1,7 @@
 {
 	"name": "@fs0lab/palette",
 	"version": "0.0.0",
+	"private": true,
 	"description": "OKLCH palette generator: 50–950 scales, semantic roles, WCAG/APCA contrast, CVD simulation. Library + `fs0` CLI.",
 	"license": "MIT",
 	"type": "module",

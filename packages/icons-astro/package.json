@@ -1,6 +1,7 @@
 {
 	"name": "@fs0lab/icons-astro",
 	"version": "0.0.0",
+	"private": true,
 	"description": "fs0ciety icons as Astro components.",
 	"license": "MIT",
 	"type": "module",

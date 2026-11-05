@@ -1,6 +1,7 @@
 {
 	"name": "@fs0lab/icons-react",
 	"version": "0.0.0",
+	"private": true,
 	"description": "fs0ciety icons as React components.",
 	"license": "MIT",
 	"type": "module",

@@ -1,6 +1,7 @@
 {
 	"name": "@fs0lab/react",
 	"version": "0.0.0",
+	"private": true,
 	"description": "fs0ciety components for React 19 (RSC-compatible).",
 	"license": "MIT",
 	"type": "module",

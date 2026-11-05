@@ -1,6 +1,7 @@
 {
 	"name": "@fs0lab/motion",
 	"version": "0.0.0",
+	"private": true,
 	"description": "fs0ciety motion presets (fs-draw, fs-scramble, fs-boot, fs-glitch, fs-count) built on GSAP.",
 	"license": "MIT",
 	"type": "module",

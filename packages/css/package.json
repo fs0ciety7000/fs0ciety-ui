@@ -1,6 +1,7 @@
 {
 	"name": "@fs0lab/css",
 	"version": "0.0.0",
+	"private": true,
 	"description": "fs0ciety CSS: reset, base, utilities and CSS-only effects, in cascade layers.",
 	"license": "MIT",
 	"type": "module",
