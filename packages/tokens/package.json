@@ -1,6 +1,6 @@
 {
 	"name": "@fs0lab/tokens",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "fs0ciety design tokens (W3C DTCG) → CSS variables, JS/TS, Tailwind v4 theme, Figma JSON.",
 	"license": "MIT",
 	"type": "module",
