@@ -36,3 +36,7 @@ target/
 
 # Générés par packages/tokens (Task 6)
 packages/tokens/src/generated/
+
+# Playwright
+test-results/
+playwright-report/

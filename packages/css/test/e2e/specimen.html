@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Spécimen fs0ciety CSS</title>
+		<link rel="stylesheet" href="../../node_modules/@fontsource-variable/martian-mono/wght.css" />
+		<link rel="stylesheet" href="../../node_modules/@fontsource-variable/inter-tight/wght.css" />
+		<link rel="stylesheet" href="../../dist/fs.css" />
+		<script>
+			const params = new URLSearchParams(location.search);
+			const theme = params.get("theme");
+			if (theme) document.documentElement.dataset.fsTheme = theme;
+			if (params.get("fx") === "off") {
+				document.addEventListener("DOMContentLoaded", () => {
+					for (const el of document.querySelectorAll("[data-fs-fx]")) el.removeAttribute("data-fs-fx");
+					for (const el of document.querySelectorAll(".fs-cursor")) el.remove();
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<main class="fs-container fs-stack">
+			<h1>Titre de niveau un</h1>
+			<h2>Titre de niveau deux</h2>
+			<h3>Titre de niveau trois</h3>
+			<h4>Titre de niveau quatre</h4>
+			<p>
+				Un paragraphe de texte courant avec un <a href="#specimen">lien visible</a>, du
+				<code>code en ligne</code> et la touche <kbd>Tab</kbd>.
+			</p>
+			<hr />
+
+			<section class="fs-stack" aria-labelledby="utilities">
+				<h2 id="utilities">Utilitaires</h2>
+				<p class="fs-display">Affichage</p>
+				<p class="fs-label">Étiquette</p>
+				<p class="fs-mono">Texte monospace</p>
+				<p class="fs-muted">Texte atténué</p>
+				<p class="fs-subtle">Texte discret</p>
+				<p class="fs-tabular">0123456789</p>
+				<p class="fs-text-display">text-display</p>
+				<p class="fs-text-2xl">text-2xl</p>
+				<p class="fs-text-xl">text-xl</p>
+				<p class="fs-text-lg">text-lg</p>
+				<p class="fs-text-md">text-md</p>
+				<p class="fs-text-sm">text-sm</p>
+				<p class="fs-text-xs">text-xs</p>
+				<p class="fs-text-2xs">text-2xs</p>
+				<p class="fs-measure">
+					Une mesure limitée pour garder des lignes lisibles, même quand le conteneur est
+					beaucoup plus large que nécessaire pour le confort de lecture.
+				</p>
+				<div class="fs-cluster"><span>Un</span><span>Deux</span><span>Trois</span></div>
+				<div class="fs-container-narrow">Conteneur étroit</div>
+				<div class="fs-container-wide">Conteneur large</div>
+				<span class="fs-sr-only">Texte réservé aux lecteurs d'écran</span>
+				<a class="fs-sr-only-focusable" href="#utilities">Aller aux utilitaires</a>
+			</section>
+
+			<section class="fs-stack" aria-labelledby="effects">
+				<h2 id="effects">Effets</h2>
+				<div id="scan-panel" data-fs-fx="scan sweep" class="fs-stack">
+					<h3>Panneau scan et sweep</h3>
+					<p>Le contenu reste au-dessus des calques décoratifs.</p>
+					<a id="scan-link" href="#effects">Lien dans le panneau</a>
+				</div>
+				<h2 id="bleed-title" data-fs-fx="bleed">Titre bleed</h2>
+				<div id="grid-area" data-fs-fx="grid" style="min-height: 8rem">
+					<p>Zone en grille</p>
+				</div>
+				<button
+					id="glitch-button"
+					type="button"
+					data-fs-fx="glitch-hover"
+					style="background: var(--fs-surface-raised); color: var(--fs-text); border: 1px solid var(--fs-line-strong); padding: 0.5rem 1rem"
+				>Bouton glitch</button>
+				<p>Curseur&nbsp;: <span id="cursor" class="fs-cursor" aria-hidden="true"></span></p>
+			</section>
+
+			<section class="fs-stack" aria-labelledby="nested">
+				<h2 id="nested">Thème imbriqué</h2>
+				<div
+					id="nested-light"
+					data-fs-theme="light"
+					class="fs-stack"
+					style="background: var(--fs-bg); color: var(--fs-text); padding: 1rem"
+				>
+					<p id="nested-subtle" style="color: var(--fs-text-subtle)">Texte discret en thème clair</p>
+					<div id="nested-box" style="border: 1px solid var(--fs-line); padding: 1rem">
+						Boîte bordée
+					</div>
+					<div id="nested-strong" style="border: 1px solid var(--fs-line-strong); padding: 1rem">
+						Référence line-strong
+					</div>
+				</div>
+				<div id="page-line" style="border: 1px solid var(--fs-line); padding: 1rem">
+					Ligne de la page
+				</div>
+				<div id="page-strong" style="border: 1px solid var(--fs-line-strong); padding: 1rem">
+					Référence line-strong de la page
+				</div>
+			</section>
+		</main>
+	</body>
+</html>

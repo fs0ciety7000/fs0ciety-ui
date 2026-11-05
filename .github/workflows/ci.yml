@@ -20,3 +20,21 @@ jobs:
       - run: pnpm build
       - run: pnpm typecheck
       - run: pnpm test
+  e2e:
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.64.1-noble
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm turbo run build --filter=@fs0lab/css...
+      - run: pnpm --filter @fs0lab/css test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: css-e2e-results
+          path: packages/css/test-results
