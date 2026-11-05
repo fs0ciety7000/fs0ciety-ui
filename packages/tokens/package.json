@@ -26,7 +26,7 @@
 	"sideEffects": false,
 	"scripts": {
 		"gen": "node scripts/build.mjs",
-		"build": "pnpm gen && tsdown src/index.ts --dts",
+		"build": "pnpm gen && tsdown",
 		"typecheck": "pnpm gen && tsc --noEmit",
 		"test": "vitest run"
 	},

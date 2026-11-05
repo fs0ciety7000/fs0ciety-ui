@@ -1,3 +1,4 @@
+import { rm } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import StyleDictionary from "style-dictionary";
@@ -11,6 +12,10 @@ export async function buildTokens({
 	outDir = join(PKG_DIR, "dist"),
 	tokensDir = DEFAULT_DIR,
 } = {}) {
+	// tsdown runs with clean: false, so drop stale CSS output ourselves.
+	if (outDir === join(PKG_DIR, "dist")) {
+		await rm(join(outDir, "css"), { recursive: true, force: true });
+	}
 	const tree = await readTokens(tokensDir);
 	// Validate aliases first so errors carry our message, not Style Dictionary's.
 	resolve(flatten(tree));
