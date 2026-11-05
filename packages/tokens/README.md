@@ -10,13 +10,24 @@ pnpm add @fs0lab/tokens
 
 ## Entry points
 
-| Import                              | Content                                                                             |
-| ----------------------------------- | ----------------------------------------------------------------------------------- |
-| `@fs0lab/tokens`                    | JS/TS: `themeNames`, `themes`, `tokens`, `cssVar(name)` (no side effects, SSR-safe) |
-| `@fs0lab/tokens/css`                | CSS variables (`--fs-*`) for the three themes, inside `@layer fs.tokens`            |
-| `@fs0lab/tokens/tailwind.css`       | Tailwind v4 `@theme` mapping; import it after `tokens.css`                          |
-| `@fs0lab/tokens/figma/<theme>.json` | Figma variables JSON for `schematic`, `night`, `light`                              |
-| `@fs0lab/tokens/tokens/...`         | Raw DTCG sources, e.g. `@fs0lab/tokens/tokens/themes/night.tokens.json`             |
+| Import                              | Content                                                                                                                     |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `@fs0lab/tokens`                    | JS/TS: `themeNames`, `roleNames`, `themes`, `tokens`, `cssVar(name)`, types `Role`, `ThemeName` (no side effects, SSR-safe) |
+| `@fs0lab/tokens/css`                | CSS variables (`--fs-*`) for the three themes, inside `@layer fs.tokens`                                                    |
+| `@fs0lab/tokens/tailwind.css`       | Tailwind v4 `@theme` mapping; import it after `tokens.css`                                                                  |
+| `@fs0lab/tokens/figma/<theme>.json` | Figma variables JSON for `schematic`, `night`, `light`                                                                      |
+| `@fs0lab/tokens/tokens/...`         | Raw DTCG sources, e.g. `@fs0lab/tokens/tokens/themes/night.tokens.json`                                                     |
+
+Import the JSON entry points with an import attribute:
+
+```ts
+import night from "@fs0lab/tokens/figma/night.json" with { type: "json" };
+import base from "@fs0lab/tokens/tokens/themes/night.tokens.json" with {
+	type: "json",
+};
+```
+
+Tokens flagged `$extensions["fs0.raw"]` carry raw CSS strings (clamp, em tracking, stretch %) and are not strict DTCG.
 
 ## Themes
 
