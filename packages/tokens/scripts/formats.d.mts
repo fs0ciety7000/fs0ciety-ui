@@ -3,11 +3,15 @@ export function formatColor(value: {
 	components: [number, number, number];
 	alpha?: number;
 }): string;
-export function formatValue(token: {
-	$type?: string;
-	$value: unknown;
-	$extensions?: Record<string, unknown>;
-}): string;
+export function formatValue(
+	token: {
+		$type?: string;
+		$value: unknown;
+		$extensions?: Record<string, unknown>;
+		path?: string[];
+	},
+	path?: string,
+): string;
 export const kebabTransform: unknown;
 export function cssVarsFormat(args: {
 	dictionary: { allTokens: unknown[] };

@@ -3,6 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { beforeAll, describe, expect, it } from "vitest";
 import { buildTokens } from "../scripts/build.mjs";
+import { formatValue } from "../scripts/formats.mjs";
 
 let outDir: string;
 beforeAll(async () => {
@@ -33,5 +34,22 @@ describe("figma json", () => {
 		expect(json.icon.cap.$value).toBe("round");
 		expect(json.primitive.color.blue["500"].$value.hex).toBe("#5B8CFF");
 		expect(JSON.stringify(json)).not.toMatch(/"\{/);
+		expect(json.primitive.color.white.$value.hex).toBe("#FFFFFF");
+		expect(text).not.toContain('"undefined"');
+	});
+});
+
+describe("type declarations", () => {
+	it("writes css.d.mts so the css export is typed", async () => {
+		const text = await readFile(join(outDir, "css.d.mts"), "utf8");
+		expect(text).toContain("export {};");
+	});
+});
+
+describe("formatValue", () => {
+	it("throws naming the token for unsupported object values", () => {
+		expect(() =>
+			formatValue({ $type: "typography", $value: { a: 1 } }, "shadow.weird"),
+		).toThrow(/shadow\.weird/);
 	});
 });

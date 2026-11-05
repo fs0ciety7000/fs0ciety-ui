@@ -15,7 +15,7 @@ const dimension = ({ value, unit }) => `${value}${unit}`;
 const family = (name) => (/\s/.test(name) ? `"${name}"` : name);
 
 /** Convert one resolved DTCG value to its CSS text. */
-export function formatValue(token) {
+export function formatValue(token, path = token.path?.join(".")) {
 	const { $type: type, $value: value } = token;
 	if (token.$extensions?.["fs0.raw"] === true) return String(value);
 	switch (type) {
@@ -29,6 +29,8 @@ export function formatValue(token) {
 		case "fontFamily":
 			return Array.isArray(value) ? value.map(family).join(", ") : value;
 		case "shadow": {
+			if (typeof value !== "object" || value === null || Array.isArray(value))
+				throw new Error(`Unsupported shadow value in ${path}`);
 			const { offsetX, offsetY, blur, spread, color } = value;
 			return [
 				dimension(offsetX),
@@ -39,6 +41,8 @@ export function formatValue(token) {
 			].join(" ");
 		}
 		default:
+			if (typeof value === "object" && value !== null)
+				throw new Error(`Unsupported ${type} value in ${path}`);
 			return String(value);
 	}
 }
@@ -137,7 +141,7 @@ function assertResolved(text, where) {
 function nestedCss(resolved) {
 	const root = {};
 	for (const [path, token] of resolved) {
-		const css = formatValue(token);
+		const css = formatValue(token, path);
 		assertResolved(css, path);
 		const parts = path.split(".");
 		let node = root;
@@ -205,9 +209,13 @@ export function figmaFormat(resolved, theme) {
 			if (!(group in out) || group === "primitive") continue;
 			out[group][rest.join(".")] = dtcg(token);
 		} else if (parts[0] === "color") {
-			const [, hue, step] = parts;
-			target = out.primitive.color[hue] ??= {};
-			target[step] = dtcg(token);
+			const [hue, ...rest] = parts.slice(1);
+			if (rest.length === 0) {
+				out.primitive.color[hue] = dtcg(token);
+			} else {
+				target = out.primitive.color[hue] ??= {};
+				target[rest.join(".")] = dtcg(token);
+			}
 		}
 	}
 	const text = JSON.stringify(out, null, "\t");
