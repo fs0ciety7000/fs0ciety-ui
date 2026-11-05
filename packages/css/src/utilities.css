@@ -1,2 +1,196 @@
 @layer fs.utilities {
+	/* Visually hidden, still exposed to assistive tech. */
+	.fs-sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		padding: 0;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	.fs-sr-only-focusable {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		padding: 0;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	.fs-sr-only-focusable:focus-visible {
+		position: static;
+		width: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		clip-path: none;
+		white-space: normal;
+	}
+
+	.fs-container {
+		width: min(
+			100% -
+			2 *
+			var(--fs-gutter, var(--fs-space-6)),
+			var(--fs-width-content)
+		);
+		margin-inline: auto;
+	}
+
+	.fs-container-narrow {
+		width: min(
+			100% -
+			2 *
+			var(--fs-gutter, var(--fs-space-6)),
+			var(--fs-width-narrow)
+		);
+		margin-inline: auto;
+	}
+
+	.fs-container-wide {
+		width: min(
+			100% -
+			2 *
+			var(--fs-gutter, var(--fs-space-6)),
+			var(--fs-width-wide)
+		);
+		margin-inline: auto;
+	}
+
+	@media (width < 640px) {
+		.fs-container,
+		.fs-container-narrow,
+		.fs-container-wide {
+			--fs-gutter: var(--fs-space-4);
+		}
+	}
+
+	.fs-stack {
+		display: flex;
+		flex-direction: column;
+		gap: var(--fs-stack-gap, var(--fs-space-4));
+	}
+
+	.fs-cluster {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--fs-cluster-gap, var(--fs-space-3));
+	}
+
+	.fs-measure {
+		max-width: var(--fs-measure);
+	}
+
+	.fs-text-2xs {
+		font-size: var(--fs-text-2xs-size);
+		line-height: var(--fs-text-2xs-line-height);
+		letter-spacing: var(--fs-text-2xs-tracking);
+		font-weight: var(--fs-text-2xs-weight);
+		font-family: var(--fs-font-display);
+		font-stretch: var(--fs-font-display-stretch);
+		text-transform: uppercase;
+	}
+
+	.fs-text-xs {
+		font-size: var(--fs-text-xs-size);
+		line-height: var(--fs-text-xs-line-height);
+		letter-spacing: var(--fs-text-xs-tracking);
+		font-weight: var(--fs-text-xs-weight);
+		font-family: var(--fs-font-display);
+		font-stretch: var(--fs-font-display-stretch);
+		text-transform: uppercase;
+	}
+
+	.fs-text-sm {
+		font-size: var(--fs-text-sm-size);
+		line-height: var(--fs-text-sm-line-height);
+		letter-spacing: var(--fs-text-sm-tracking);
+		font-weight: var(--fs-text-sm-weight);
+	}
+
+	.fs-text-md {
+		font-size: var(--fs-text-md-size);
+		line-height: var(--fs-text-md-line-height);
+		letter-spacing: var(--fs-text-md-tracking);
+		font-weight: var(--fs-text-md-weight);
+	}
+
+	.fs-text-lg {
+		font-size: var(--fs-text-lg-size);
+		line-height: var(--fs-text-lg-line-height);
+		letter-spacing: var(--fs-text-lg-tracking);
+		font-weight: var(--fs-text-lg-weight);
+	}
+
+	.fs-text-xl {
+		font-size: var(--fs-text-xl-size);
+		line-height: var(--fs-text-xl-line-height);
+		letter-spacing: var(--fs-text-xl-tracking);
+		font-weight: var(--fs-text-xl-weight);
+		font-family: var(--fs-font-display);
+		font-stretch: var(--fs-font-display-stretch);
+		text-transform: uppercase;
+	}
+
+	.fs-text-2xl {
+		font-size: var(--fs-text-2xl-size);
+		line-height: var(--fs-text-2xl-line-height);
+		letter-spacing: var(--fs-text-2xl-tracking);
+		font-weight: var(--fs-text-2xl-weight);
+		font-family: var(--fs-font-display);
+		font-stretch: var(--fs-font-display-stretch);
+		text-transform: uppercase;
+	}
+
+	.fs-text-display {
+		font-size: var(--fs-text-display-size);
+		line-height: var(--fs-text-display-line-height);
+		letter-spacing: var(--fs-text-display-tracking);
+		font-weight: var(--fs-text-display-weight);
+		font-family: var(--fs-font-display);
+		font-stretch: var(--fs-font-display-stretch);
+		text-transform: uppercase;
+	}
+
+	.fs-label {
+		font-size: var(--fs-text-xs-size);
+		line-height: var(--fs-text-xs-line-height);
+		letter-spacing: var(--fs-text-xs-tracking);
+		font-weight: var(--fs-text-xs-weight);
+		font-family: var(--fs-font-display);
+		font-stretch: var(--fs-font-display-stretch);
+		text-transform: uppercase;
+		color: var(--fs-text-muted);
+	}
+
+	.fs-mono {
+		font-family: var(--fs-font-mono);
+		font-stretch: var(--fs-font-mono-stretch);
+	}
+
+	.fs-display {
+		font-family: var(--fs-font-display);
+		font-stretch: var(--fs-font-display-stretch);
+	}
+
+	.fs-tabular {
+		font-variant-numeric: tabular-nums slashed-zero;
+	}
+
+	.fs-muted {
+		color: var(--fs-text-muted);
+	}
+
+	/* Only for text of 12px and above (DESIGN.md). */
+	.fs-subtle {
+		color: var(--fs-text-subtle);
+	}
 }

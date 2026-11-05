@@ -213,16 +213,48 @@ export function rulesOf(file: string): Rule[] {
 }
 
 /**
- * True when every component is :where(...) or a combinator. A trailing
- * pseudo-element is tolerated: it cannot live inside :where() (invalid), so
- * `:where(*)::before` is the lowest specificity achievable for it.
+ * True when every component is :where(...) or a combinator. A pseudo-element is
+ * tolerated only as the LAST component and only right after a :where(...)
+ * component: it cannot live inside :where() (invalid), so `:where(*)::before`
+ * is the lowest specificity achievable for it. A bare `::before` fails.
  */
 export function isZeroSpecificity(selector: Component[]): boolean {
-	return selector.every(
-		(c) =>
-			c.type === "combinator" ||
-			c.type === "pseudo-element" ||
-			(c.type === "pseudo-class" && c.kind === "where"),
+	return selector.every((c, i) => {
+		if (c.type === "combinator") return true;
+		if (c.type === "pseudo-class" && c.kind === "where") return true;
+		if (c.type === "pseudo-element") {
+			const prev = selector[i - 1];
+			return (
+				i === selector.length - 1 &&
+				prev?.type === "pseudo-class" &&
+				prev.kind === "where"
+			);
+		}
+		return false;
+	});
+}
+
+/** Selectors allowed to carry specificity in reset/base (exact match, whitespace-normalised). */
+export const EXEMPT_SELECTORS = new Set([
+	":root",
+	'[data-fs-theme="schematic"]',
+	'[data-fs-theme="night"]',
+	'[data-fs-theme="light"]',
+	"[data-fs-theme]",
+	":root:not([data-fs-theme])",
+	":focus-visible",
+	":focus:not(:focus-visible)",
+	"::selection",
+]);
+
+/** Accepts printed selectors with or without quotes around attribute values. */
+export function isExemptSelector(selector: string): boolean {
+	const n = selector
+		.replace(/\s+/g, " ")
+		.trim()
+		.replace(/="([^"]*)"/g, "=$1");
+	return [...EXEMPT_SELECTORS].some(
+		(e) => e.replace(/="([^"]*)"/g, "=$1") === n,
 	);
 }
 
