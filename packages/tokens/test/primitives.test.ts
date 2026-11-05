@@ -1,4 +1,4 @@
-import { differenceCiede2000, oklch } from "culori";
+import { type Color, differenceCiede2000, oklch } from "culori";
 import { describe, expect, it } from "vitest";
 import { flatten, readTokens } from "../scripts/load.mjs";
 
@@ -68,7 +68,7 @@ describe("color primitives", () => {
 			const [l, c, h] = v.components as [number, number, number];
 			expect(l, path).toBeGreaterThanOrEqual(0);
 			expect(l, path).toBeLessThanOrEqual(1);
-			const d = diff(oklch(v.hex), { mode: "oklch", l, c, h });
+			const d = diff(oklch(v.hex) as Color, { mode: "oklch", l, c, h });
 			expect(d, path).toBeLessThan(0.5);
 		}
 	});

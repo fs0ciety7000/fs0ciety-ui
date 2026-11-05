@@ -1,0 +1,145 @@
+{
+	"theme": {
+		"night": {
+			"color": {
+				"$type": "color",
+				"bg": {
+					"$value": "{color.indigo.950}"
+				},
+				"surface": {
+					"$value": "{color.indigo.900}"
+				},
+				"surface-raised": {
+					"$value": "{color.indigo.850}"
+				},
+				"line": {
+					"$value": "{color.indigo.800}"
+				},
+				"line-strong": {
+					"$value": "{color.indigo.500}"
+				},
+				"text-strong": {
+					"$value": "{color.indigo.100}"
+				},
+				"text": {
+					"$value": "{color.indigo.100}"
+				},
+				"text-muted": {
+					"$value": "{color.indigo.200}"
+				},
+				"text-subtle": {
+					"$value": "{color.indigo.300}"
+				},
+				"link": {
+					"$value": "{color.trace.300}"
+				},
+				"link-hover": {
+					"$value": "{color.trace.200}"
+				},
+				"accent": {
+					"$value": "{color.vivant.400}"
+				},
+				"on-accent": {
+					"$value": "{color.indigo.950}"
+				},
+				"focus-ring": {
+					"$value": "{color.lavender.300}"
+				},
+				"success": {
+					"$value": "{color.vivant.400}"
+				},
+				"warning": {
+					"$value": "{color.ember.500}"
+				},
+				"danger": {
+					"$value": "{color.red.500}"
+				},
+				"on-danger": {
+					"$value": "{color.indigo.950}"
+				},
+				"info": {
+					"$value": "{color.trace.300}"
+				},
+				"cable-1": {
+					"$value": "{color.matrix.500}"
+				},
+				"cable-2": {
+					"$value": "{color.vivant.400}"
+				},
+				"cable-3": {
+					"$value": "{color.lavender.300}"
+				},
+				"backdrop": {
+					"$value": {
+						"colorSpace": "oklch",
+						"components": [0.156, 0.0444, 273.39],
+						"alpha": 0.72,
+						"hex": "#070A1F"
+					}
+				}
+			},
+			"radius": {
+				"$type": "dimension",
+				"sm": {
+					"$value": {
+						"value": 2,
+						"unit": "px"
+					}
+				},
+				"md": {
+					"$value": {
+						"value": 4,
+						"unit": "px"
+					}
+				},
+				"lg": {
+					"$value": {
+						"value": 6,
+						"unit": "px"
+					}
+				},
+				"pill": {
+					"$value": {
+						"value": 999,
+						"unit": "px"
+					}
+				}
+			},
+			"shadow": {
+				"glow": {
+					"$type": "shadow",
+					"$value": {
+						"color": {
+							"colorSpace": "oklch",
+							"components": [0.5241, 0.2198, 269.21],
+							"hex": "#3B55E6",
+							"alpha": 0.2
+						},
+						"offsetX": {
+							"value": 0,
+							"unit": "px"
+						},
+						"offsetY": {
+							"value": 0,
+							"unit": "px"
+						},
+						"blur": {
+							"value": 32,
+							"unit": "px"
+						},
+						"spread": {
+							"value": 0,
+							"unit": "px"
+						}
+					}
+				}
+			},
+			"icon": {
+				"cap": {
+					"$type": "string",
+					"$value": "round"
+				}
+			}
+		}
+	}
+}

@@ -15,3 +15,6 @@ export type TokenTree = {
 export const DEFAULT_DIR: string;
 export function readTokens(dir?: string): Promise<TokenTree>;
 export function flatten(tree: TokenTree): Map<string, Token>;
+export type ResolvedToken = Token & { aliasOf?: string };
+export const THEMES: readonly ["schematic", "night", "light"];
+export function resolve(map: Map<string, Token>): Map<string, ResolvedToken>;

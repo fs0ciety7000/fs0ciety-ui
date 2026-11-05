@@ -1,0 +1,145 @@
+{
+	"theme": {
+		"schematic": {
+			"color": {
+				"$type": "color",
+				"bg": {
+					"$value": "{color.ink.950}"
+				},
+				"surface": {
+					"$value": "{color.ink.925}"
+				},
+				"surface-raised": {
+					"$value": "{color.ink.900}"
+				},
+				"line": {
+					"$value": "{color.trace.800}"
+				},
+				"line-strong": {
+					"$value": "{color.trace.300}"
+				},
+				"text-strong": {
+					"$value": "{color.ink.50}"
+				},
+				"text": {
+					"$value": "{color.ink.100}"
+				},
+				"text-muted": {
+					"$value": "{color.ink.200}"
+				},
+				"text-subtle": {
+					"$value": "{color.ink.300}"
+				},
+				"link": {
+					"$value": "{color.trace.300}"
+				},
+				"link-hover": {
+					"$value": "{color.trace.200}"
+				},
+				"accent": {
+					"$value": "{color.coral.500}"
+				},
+				"on-accent": {
+					"$value": "{color.ink.950}"
+				},
+				"focus-ring": {
+					"$value": "{color.coral.500}"
+				},
+				"success": {
+					"$value": "{color.vivant.400}"
+				},
+				"warning": {
+					"$value": "{color.ember.500}"
+				},
+				"danger": {
+					"$value": "{color.red.500}"
+				},
+				"on-danger": {
+					"$value": "{color.ink.950}"
+				},
+				"info": {
+					"$value": "{color.trace.300}"
+				},
+				"cable-1": {
+					"$value": "{color.coral.500}"
+				},
+				"cable-2": {
+					"$value": "{color.blue.500}"
+				},
+				"cable-3": {
+					"$value": "{color.ember.500}"
+				},
+				"backdrop": {
+					"$value": {
+						"colorSpace": "oklch",
+						"components": [0.1217, 0.0062, 261.58],
+						"alpha": 0.72,
+						"hex": "#050608"
+					}
+				}
+			},
+			"radius": {
+				"$type": "dimension",
+				"sm": {
+					"$value": {
+						"value": 0,
+						"unit": "px"
+					}
+				},
+				"md": {
+					"$value": {
+						"value": 0,
+						"unit": "px"
+					}
+				},
+				"lg": {
+					"$value": {
+						"value": 0,
+						"unit": "px"
+					}
+				},
+				"pill": {
+					"$value": {
+						"value": 0,
+						"unit": "px"
+					}
+				}
+			},
+			"shadow": {
+				"glow": {
+					"$type": "shadow",
+					"$value": {
+						"color": {
+							"colorSpace": "oklch",
+							"components": [0.8071, 0.1007, 250.45],
+							"hex": "#8EC5FF",
+							"alpha": 0.12
+						},
+						"offsetX": {
+							"value": 0,
+							"unit": "px"
+						},
+						"offsetY": {
+							"value": 0,
+							"unit": "px"
+						},
+						"blur": {
+							"value": 32,
+							"unit": "px"
+						},
+						"spread": {
+							"value": 0,
+							"unit": "px"
+						}
+					}
+				}
+			},
+			"icon": {
+				"cap": {
+					"$type": "string",
+					"$value": "square"
+				}
+			}
+		}
+	}
+}

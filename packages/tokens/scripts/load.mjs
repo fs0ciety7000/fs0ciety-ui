@@ -78,3 +78,43 @@ export function flatten(tree) {
 	walk(tree, [], undefined);
 	return out;
 }
+
+export const THEMES = /** @type {const} */ (["schematic", "night", "light"]);
+
+const ALIAS = /^\{([^{}]+)\}$/;
+
+/**
+ * Resolve whole-value DTCG aliases ("{color.ink.950}"). An aliased token gets the
+ * target's resolved $value/$type and keeps the original string under `aliasOf`.
+ */
+export function resolve(map) {
+	const out = new Map();
+	const visit = (path, chain) => {
+		const done = out.get(path);
+		if (done) return done;
+		const token = map.get(path);
+		const match =
+			typeof token.$value === "string" ? ALIAS.exec(token.$value) : null;
+		let resolved;
+		if (match) {
+			const target = match[1];
+			if (!map.has(target)) {
+				throw new Error(`Unknown alias {${target}} in ${path}`);
+			}
+			if (chain.includes(target)) {
+				throw new Error(
+					`Alias cycle: ${[...chain, target].slice(chain.indexOf(target)).join(" → ")}`,
+				);
+			}
+			const base = visit(target, [...chain, target]);
+			resolved = { ...base, aliasOf: token.$value };
+			if (token.$type) resolved.$type = token.$type;
+		} else {
+			resolved = { ...token };
+		}
+		out.set(path, resolved);
+		return resolved;
+	};
+	for (const path of map.keys()) visit(path, [path]);
+	return out;
+}

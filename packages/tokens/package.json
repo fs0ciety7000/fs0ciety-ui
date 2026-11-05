@@ -27,7 +27,7 @@
 	"scripts": {
 		"build": "tsdown src/index.ts --dts",
 		"typecheck": "tsc --noEmit",
-		"test": "vitest run --passWithNoTests"
+		"test": "vitest run"
 	},
 	"devDependencies": {
 		"@types/culori": "^4.0.1",
